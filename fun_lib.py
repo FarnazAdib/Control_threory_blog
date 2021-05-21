@@ -14,6 +14,7 @@ def plot_simple_car(trajectory, par):
     y1 = trajectory[:, 2]
 
     fig = plt.figure(figsize=(10, 4))
+    plt.title(par['title'])
     gs = gridspec.GridSpec(2, 2)
     ax1 = fig.add_subplot(gs[:, 0], autoscale_on=False, xlim=(-5.0, 5.0), ylim=(-5.0, 5.0))
     ax1.set_aspect('equal')
@@ -45,6 +46,7 @@ def plot_simple_car(trajectory, par):
     ax3.grid()
     ax3.set_xlabel('time')
     ax3.set_ylabel('y')
+
 
     def animate(i):
         thisx = [x1[i]]
@@ -84,6 +86,7 @@ def plot_and_save_simple_car(trajectory, par):
     y1 = trajectory[:, 2]
 
     fig = plt.figure(figsize=(5, 4))
+    plt.title(par['title'])
     gs = gridspec.GridSpec(2, 2)
     ax1 = fig.add_subplot(autoscale_on=False, xlim=(-5.0, 5.0), ylim=(-5.0, 5.0))
     ax1.set_aspect('equal')

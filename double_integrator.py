@@ -14,8 +14,8 @@ def simple_car(par):
     def derivs(state, t):
         state_x = (state[0: 2]).reshape((2, 1))
         state_y = (state[2: 4]).reshape((2, 1))
-        dxdt = (A + B @ Kx) @ state_x
-        dydt = (A + B @ Ky) @ state_y
+        dxdt = (A - B @ Kx) @ state_x
+        dydt = (A - B @ Ky) @ state_y
         dstate_dt = np.concatenate([dxdt, dydt], axis=0)
         return dstate_dt.flatten()
 
@@ -25,20 +25,22 @@ def simple_car(par):
 
 your_controller = {
     'init_state': np.array([-3.0, 1.0, 2.0, 1.0]),
-    'Kx': np.array([[-4.0, -3.0]]),
-    'Ky': np.array([[-4.0, -3.0]]),
+    'Kx': np.array([[4.0, 5.0]]),
+    'Ky': np.array([[4.0, 5.0]]),
     't_stop': 5,  # how many seconds to simulate
-    'dt': 0.02
+    'dt': 0.02,
+    'title': 'State feedback controller'
 }
 trajectory = simple_car(your_controller)
 ani = plot_simple_car(trajectory, your_controller)
 
 P_controller = {
     'init_state': np.array([-3.0, 1.0, 2.0, 1.0]),
-    'Kx': np.array([[-4.0, 0.0]]),
-    'Ky': np.array([[-4.0, 0.0]]),
+    'Kx': np.array([[4.0, 0.0]]),
+    'Ky': np.array([[4.0, 0.0]]),
     't_stop': 5,  # how many seconds to simulate
-    'dt': 0.02
+    'dt': 0.02,
+    'title': 'Output feedback or P controller'
 }
 
 trajectory_P = simple_car(P_controller)
@@ -46,10 +48,11 @@ ani_P = plot_simple_car(trajectory_P, P_controller)
 
 D_controller = {
     'init_state': np.array([-3.0, 1.0, 2.0, 1.0]),
-    'Kx': np.array([[0, -3.0]]),
-    'Ky': np.array([[0, -3.0]]),
+    'Kx': np.array([[0, 5.0]]),
+    'Ky': np.array([[0, 5.0]]),
     't_stop': 5,  # how many seconds to simulate
-    'dt': 0.02
+    'dt': 0.02,
+    'title': 'D controller'
 }
 
 trajectory_D = simple_car(D_controller)
